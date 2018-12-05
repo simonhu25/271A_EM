@@ -34,7 +34,7 @@ mu_bg = zeros(n_mix,M*n_class);
 sigma_bg = zeros(n_mix,M*n_class);
 pi_bg = zeros(n_mix,n_class);
 %% Training.
-fprintf('Loading completed...starting training.');
+fprintf('Loading completed...starting training.\n');
 tic;
 for idx_mix = 1:n_mix
     % idx_mix % For debugging purposes. Comment later.
@@ -59,12 +59,12 @@ p_err_25 = zeros(n_mix*n_mix,n_dims);
 %     end
 % end
 dct_coeffs = get_dct(cheetah_ori,zig);
-%% For now. Delete later.
+
 % Perform the BDR prediction.
-for idx_mix1 = 1:1
-    for idx_mix2 = 1:1
+tic;
+for idx_mix1 = 1:5
+    for idx_mix2 = 1:5
         for idx_dim = 1:n_dims
-            idx_dim
             A_25 = bdr_predict(dct_coeffs,dims(idx_dim),...
                 mu_fg(idx_mix1,:),mu_bg(idx_mix2,:),sigma_fg(idx_mix1,:),sigma_bg(idx_mix2,:),...
                 pi_fg(idx_mix1,:),pi_bg(idx_mix2,:),p_fg,p_bg,rows_cheetah_ori,cols_cheetah_ori,n_class);
@@ -72,4 +72,7 @@ for idx_mix1 = 1:1
         end
     end
 end
+toc;
 % Plot the results from the 25 different classifiers.
+% 12/05/2018 : Leave the plotting until you have all of the data from the
+% training and predicting. 
