@@ -13,12 +13,14 @@ p_error = zeros(n_classes,n_dims);
 fprintf('Loading completed. Training and predicting models ...\n');
 
 %% EM model training and prediction.
-parfor idx_class = 1:n_classes
+for idx_class = 1:1
+   idx_class
    [mu_fg_c,sigma_fg_c,pi_fg_c] = em_calc(dct_coeffs,classes(idx_class),M,200);
    [mu_bg_c,sigma_bg_c,pi_bg_c] = em_calc(dct_coeffs,classes(idx_class),M,200);
    for idx_dim = 1:n_dims
-       A = bdr_predict(dct_coeffs,dims(idx_dim),mu_fg_c,mu_bg_c,sigma_fg_c,sigma_bg_c,...
+       idx_dim
+       A_mask = bdr_predict(dct_coeffs,dims(idx_dim),mu_fg_c,mu_bg_c,sigma_fg_c,sigma_bg_c,...
            pi_fg_c,pi_bg_c,p_fg,p_bg,rows_cheetah_ori,cols_cheetah_ori,classes(idx_class));
-       p_error(idx_class,idx_dim) = calc_error(A,p_fg,p_bg);
+       p_error(idx_class,idx_dim) = calc_error(A_mask,p_fg,p_bg);
    end
 end
