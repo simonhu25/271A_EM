@@ -1,0 +1,103 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{research}
+	[2018/08/09 v0.01 LaTeX style package for the purposes of writing research notes]
+
+\RequirePackage{}
+\let\myDate\date
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+
+\geometry{letterpaper, margin=1in}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{commath}
+\usepackage{units}
+\usepackage{enumitem}
+\usepackage{amsthm}
+\usepackage{esint}
+\usepackage{float}
+\usepackage[all]{xy}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{remark*}{Remark}
+
+\numberwithin{theorem}{section}
+\numberwithin{proposition}{section}
+\numberwithin{remark}{section}
+\numberwithin{corollary}{section}
+\numberwithin{definition}{section}
+\numberwithin{lemma}{section}
+\numberwithin{equation}{section}
+
+
+\usepackage[numbers,sort&compress]{natbib}
+\bibpunct{[}{]}{;}{n}{,}{,}
+\makeatletter
+\def\@tocline#1#2#3#4#5#6#7{\relax
+	\ifnum #1>\c@tocdepth % then omit
+	\else
+	\par \addpenalty\@secpenalty\addvspace{#2}%
+	\begingroup \hyphenpenalty\@M
+	\@ifempty{#4}{%
+		\@tempdima\csname r@tocindent\number#1\endcsname\relax
+	}{%
+		\@tempdima#4\relax
+	}%
+	\parindent\z@ \leftskip#3\relax \advance\leftskip\@tempdima\relax
+	\rightskip\@pnumwidth plus4em \parfillskip-\@pnumwidth
+	#5\leavevmode\hskip-\@tempdima
+	\ifcase #1
+	\or\or \hskip 1em \or \hskip 2em \else \hskip 3em \fi%
+	#6\nobreak\relax
+	\hfill\hbox to\@pnumwidth{\@tocpagenum{#7}}\par% <---- \dotfill -> \hfill
+	\nobreak
+	\endgroup
+	\fi}
+\makeatother
+
+\usepackage{mathtools}
+
+\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
+
+
+\setcounter{tocdepth}{5}
+
+\usepackage[colorlinks=trye,bookmarksdepth=0,hidelinks]{hyperref}
+
+\newcommand{\bfi}{\bfseries\itshape}
+\newcommand{\hookuparrow}{\mathrel{\rotatebox[origin=c]{90}{$\hookrightarrow$}}}
+\DeclareMathOperator*{\ext}{ext}
+\DeclareMathOperator{\loc}{loc}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+
+\allowdisplaybreaks
+
+
+% Defining some special symbols
+\def\Xint#1{\mathchoice
+	{\XXint\displaystyle\textstyle{#1}}%
+	{\XXint\textstyle\scriptstyle{#1}}%
+	{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+	{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+	\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$}
+		\vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+% Define macros
+\newcommand{\R}{\mathbb{R}}
